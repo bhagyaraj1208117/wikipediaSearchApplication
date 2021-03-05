@@ -1,6 +1,9 @@
+// using dom 
 let searchInputEl = document.getElementById("searchInput");
 let searchResultEl = document.getElementById("searchResults");
 let spinnerEl=document.getElementById("spinner");
+
+// creating result elements 
 function createAndAppend(result){
     let {title,link,description} = result;
     
@@ -34,7 +37,7 @@ function createAndAppend(result){
     descriptionEl.textContent=description;
     searchResultsContainer.appendChild(descriptionEl);
 }
-
+// itrating every possible search 
 function displayResults(search_results) {
     spinnerEl.classList.add("d-none");
     for (let result of search_results){
@@ -42,19 +45,22 @@ function displayResults(search_results) {
     }
 }
 
-
+// trigerring when the enter pressed on search input
   function searchWikipedia(event) {
     if (event.key === "Enter") {
     spinnerEl.classList.toggle("d-none");
     searchResultEl .textContent="";
 
     let searchInput = searchInputEl.value;
-    
+        
+   
     let url = "https://apis.ccbp.in/wiki-search?search=" + searchInput;
     let options = {
       method: "GET"
     };
-
+ 
+    // making fetch request
+        
     fetch(url, options)
       .then(function (response) {
         return response.json();
@@ -67,4 +73,5 @@ function displayResults(search_results) {
   }
 
 }
+// adding event listner
 searchInput.addEventListener("keydown", searchWikipedia);
